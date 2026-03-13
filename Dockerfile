@@ -1,9 +1,11 @@
 FROM bitnami/wordpress:latest
+
 USER root
+# Copy your local wp-content to the correct internal Bitnami path
+COPY wp-content /opt/bitnami/wordpress/wp-content
 
-COPY wp-content/mu-plugins/ /opt/bitnami/wordpress/wp-content/mu-plugins/
-COPY copy-plugins.sh /docker-entrypoint-init.d/copy-plugins.sh
-RUN chmod +x /docker-entrypoint-init.d/copy-plugins.sh \
-    && chown -R 1001:1001 /opt/bitnami/wordpress/wp-content
+# Fix ownership so the 'daemon' user (1001) can manage the files
+RUN chown -R 1001:1001 /opt/bitnami/wordpress/wp-content
 
+# Switch back to the non-root user for security and compatibility
 USER 1001

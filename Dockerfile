@@ -8,4 +8,3 @@ RUN chmod +x /entrypoint-extra.sh \
 
 USER 1001
 ENTRYPOINT ["/entrypoint-extra.sh"]
-CMD ["/opt/bitnami/scripts/wordpress/run.sh"]
